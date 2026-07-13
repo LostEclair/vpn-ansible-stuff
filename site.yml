@@ -1,0 +1,13 @@
+---
+
+- name: Deploy core configuration
+  hosts: core
+  strategy: free
+  roles:
+    - core
+
+- name: Deploy node configuration
+  hosts: node
+  strategy: free
+  roles:
+    - node

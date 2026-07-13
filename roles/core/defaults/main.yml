@@ -1,0 +1,13 @@
+---
+
+admin_ssh_keys: []
+admin_password: "{{ 'changeme' | password_hash('sha512', 'mysalt') }}"
+
+packages:
+  - htop
+  - iotop
+  - iftop
+  - vim
+  - nano
+  - lsof
+  - wget

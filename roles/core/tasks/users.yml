@@ -1,0 +1,25 @@
+---
+
+- name: Ensure 'admin' is created
+  become: yes
+  ansible.builtin.user:
+    name: admin
+    comment: "Server admin user account"
+    groups:
+      - sudo
+    append: yes
+    state: present
+    shell: /bin/bash
+    create_home: yes
+    generate_ssh_key: yes
+    password: "{{ admin_password }}"
+
+- name: Add SSH keys to the 'admin' user
+  ansible.builtin.lineinfile:
+    path: /home/admin/.ssh/authorized_keys
+    line: "{{ item }}"
+    owner: admin
+    group: admin
+    mode: "0600"
+    create: true
+  loop: "{{ admin_ssh_keys }}"

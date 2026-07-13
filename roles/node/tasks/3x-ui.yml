@@ -1,0 +1,31 @@
+---
+
+- name: Create 3x-ui service directory
+  become: yes
+  file:
+    path: /opt/3xui
+    state: directory
+    mode: '0755'
+
+- name: Create subdirectories, that are required by the 3x-ui
+  become: yes
+  file:
+    path: "/opt/3xui/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - db
+    - cert
+
+- name: Deploy Docker Compose file
+  become: yes
+  copy:
+    src: docker-compose.yml
+    dest: /opt/3xui/docker-compose.yml
+    mode: '0644'
+
+- name: Start 3x-ui container
+  become: yes
+  shell:
+    cmd: docker compose up -d
+    chdir: /opt/3xui

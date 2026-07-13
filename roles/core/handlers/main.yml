@@ -1,0 +1,4 @@
+---
+
+- import_tasks: restart-sshd.yml
+- import_tasks: reboot.yml

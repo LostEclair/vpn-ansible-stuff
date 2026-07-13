@@ -1,0 +1,11 @@
+---
+
+- name: Give 'sudo' to sudo group members
+  become: yes
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/admin
+    content: "%sudo ALL=(ALL:ALL) ALL\n"
+    owner: root
+    group: root
+    mode: '0440'
+    validate: "visudo -cf %s"

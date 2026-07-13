@@ -1,0 +1,11 @@
+---
+
+- name: Open needed ports
+  become: yes
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+  loop:
+    - 443
+    - 2053
+    - 2096

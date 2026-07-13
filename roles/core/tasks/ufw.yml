@@ -1,0 +1,27 @@
+---
+
+- name: Install UFW
+  become: yes
+  package:
+    name: "ufw"
+    state: present
+
+- name: Allow outgoing traffic
+  become: yes
+  community.general.ufw:
+    direction: out
+    rule: allow
+
+- name: Rate limit SSHD port
+  become: yes
+  community.general.ufw:
+    rule: limit
+    name: OpenSSH
+
+- name: Enable UFW with logging, with deny as a default
+  become: yes
+  community.general.ufw:
+    state: enabled
+    log: "on"
+    default: deny
+  notify: Reboot the system
